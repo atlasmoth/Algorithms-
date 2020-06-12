@@ -1,34 +1,39 @@
-function randomNumber(array) {
-  const num = () => Math.floor(Math.random() * array.length);
-  return array[num()];
-}
-
-// console.log(randomNumber([1, 2, 3]));
-
-const makeDragon = () => {
-  const dragonSizes = ["big", "medium", "tiny"];
-  const dragonAbilities = ["fire", "ice", "lightning"];
-
-  return `${randomNumber(dragonSizes)} dragon has ${randomNumber(
-    dragonAbilities
-  )} ability`;
-};
-
-const dragonArmy = {
-  [Symbol.iterator]: () => {
+const protoObj = {
+  [Symbol.iterator]: function () {
+    let counter = 0;
     return {
       next: () => {
-        const enuf = Math.random() > 0.75;
-        if (!enuf) {
-          return {
-            value: makeDragon(),
-            done: false,
-          };
+        counter++;
+        if (counter >= 5) {
+          return { value: `text${counter}`, done: true };
         }
-        return { done: true };
+        return { value: `text${counter}`, done: false };
       },
     };
   },
 };
 
-console.log(dragonArmy[Symbol.iterator]().next());
+const iterator = protoObj[Symbol.iterator]();
+
+const childObj = {
+  [Symbol.iterator]: function* newObj() {
+    let counter = 0;
+    while (true) {
+      counter++;
+      if (counter >= 5) {
+        return "We don reach the end";
+      }
+      yield `test${counter}`;
+    }
+  },
+};
+
+const newIterator = childObj[Symbol.iterator]();
+
+console.log(newIterator.next());
+console.log(newIterator.next());
+console.log(newIterator.next());
+console.log(newIterator.next());
+console.log(newIterator.next());
+console.log(newIterator.next());
+console.log(newIterator.next());
