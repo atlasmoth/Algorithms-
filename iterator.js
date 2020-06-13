@@ -1,38 +1,27 @@
 const fetch = require("isomorphic-unfetch");
 
-function data() {
-  const getPost = async (num) => {
-    const url = `https://jsonplaceholder.typicode.com/todos/`;
-    try {
-      const post = fetch(`${url}${num}`).then((res) => res.json());
-      return post;
-    } catch (error) {
-      return error;
-    }
-  };
+function main() {
+  let counter = 1;
+  const url = `https://jsonplaceholder.typicode.com/todos/`;
+  const getPost = async () =>
+    await fetch(`${url}${counter}`).then((res) => res.json());
 
   return {
-    [Symbol.asyncIterator]: function getter() {
-      let counter = 1;
-      return {
-        next: async () => {
-          counter++;
-          const response = await getPost(counter);
-          if (!response.id || !response.id) {
-            return {
-              value: "Sorry this is the end of your stream",
-              done: true,
-            };
-          }
-          return { value: response, done: false };
-        },
-      };
+    [Symbol.asyncIterator]: async function* getter() {
+      while (true) {
+        counter++;
+        const post = await getPost();
+        if (!post.id || !post.title) {
+          return "This is the end amigo";
+        }
+        yield post;
+      }
     },
   };
 }
 
-// (async () => {
-//   for await (const stuff of data()) {
-//     console.log(stuff);
-//   }
-// })();
+(async () => {
+  console.log(await main()[Symbol.asyncIterator]().next());
+  console.log(await main()[Symbol.asyncIterator]().next());
+  console.log(await main()[Symbol.asyncIterator]().next());
+})();
