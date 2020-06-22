@@ -1,0 +1,5 @@
+Big O is derived by taking the function of the number of computational proceeses performed by an algorithm.
+
+Sometimes, a lot of math is necessary to reduce how long an algorithm takes to run.
+
+ignore all constant values when computiing (O)n.
