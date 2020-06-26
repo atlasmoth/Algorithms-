@@ -22,4 +22,5 @@ function isPrime(num) {
   }
   return bool;
 }
-console.log(isPrime(9));
+console.log(isPrime(23));
+// time = n/2 = linear
