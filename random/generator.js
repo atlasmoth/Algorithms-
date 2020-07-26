@@ -210,7 +210,7 @@
 //   // //   }
 //   // // })();
 
-const fetch = require("isomorphic-unfetch");
+const fetch = require("./node_modules/isomorphic-unfetch");
 
 // function main() {
 //   let counter = 1;
