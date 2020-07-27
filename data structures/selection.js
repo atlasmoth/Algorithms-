@@ -5,17 +5,26 @@ function selection(list) {
     value: undefined,
   };
   let count = 0;
-  let lowestValue;
+  let lowest;
+
   while (sorted === false) {
+    lowest = count;
     for (let x = count + 1; x < list.length; x++) {
-      console.log(Math.min(list[count], list[x]));
+      if (list[x] < list[lowest]) {
+        lowest = x;
+      }
     }
+    holder.value = list[count];
+    holder.index = lowest;
+    list[count] = list[lowest];
+    list[holder.index] = holder.value;
 
     count++;
 
     if (count >= list.length) {
       break;
     }
+    console.log(list);
   }
 }
 
