@@ -16,12 +16,8 @@ function recursionBuilder(list = []) {
 }
 
 // console.log(recursionBuilder([3, 5, 1, 10, 19, 21]).findMax());
-let sum = 0;
-let init = 1;
-let prev = 1;
-let count = 0;
 
-function fibonacci(num) {
+function fibonacci(num, count = 0, init = 1, prev = 1, sum = 0) {
   count++;
   if (count <= num) {
     if (count >= 3) {
@@ -30,8 +26,31 @@ function fibonacci(num) {
       prev = sum;
     }
 
-    fibonacci(num);
+    return fibonacci(num, count, init, prev, sum);
+  } else {
+    return sum;
   }
 }
-fibonacci(10);
-console.log(sum);
+
+function factorial(num = 10, product = 1) {
+  if (num > 0) {
+    product *= num;
+    num--;
+    return factorial(num, product);
+  } else {
+    return product;
+  }
+}
+
+function probability(int, count = 1, list = []) {
+  if (count < int) {
+    const bool = Math.floor(Math.random() * 2) + 1;
+    const val = bool === 2 ? "H" : "T";
+    list.push(val);
+    count++;
+    return probability(int, count, list);
+  } else {
+    return list;
+  }
+}
+console.log(probability(50, 0));
