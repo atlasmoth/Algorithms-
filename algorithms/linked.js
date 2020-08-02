@@ -5,9 +5,7 @@ class Node {
     this.data = data;
     this.next = undefined;
   }
-  setIndex(index) {
-    this.index = index;
-  }
+
   setNext(val) {
     this.next = val;
   }
@@ -15,28 +13,76 @@ class Node {
 
 class Linked {
   constructor() {
-    this.count = 0;
     this.lastVal = undefined;
-    this.list = {};
+    this.head = undefined;
   }
-  append(data) {
+  append(data = crypto.randomBytes(10).toString("hex")) {
     const node = new Node(data);
-    if (!this.lastVal) {
-      node.setIndex(this.count);
+    if (!this.head) {
+      this.head = node;
       this.lastVal = node;
-      this.list.head = node;
-      this.count++;
     } else {
-      node.setIndex(this.count);
       this.lastVal.setNext(node);
       this.lastVal = node;
-      this.count++;
+    }
+  }
+  prepend(data = crypto.randomBytes(10).toString("hex")) {
+    const node = new Node(`${data}`);
+    node.next = this.head;
+    if (!this.head) {
+      this.lastVal = node;
+    }
+    this.head = node;
+  }
+  pop() {
+    if (this.head === undefined) {
+      return;
+    }
+    if (this.head.next === undefined) {
+      let holder = this.head;
+      this.head = undefined;
+      this.lastVal = undefined;
+      return holder;
+    }
+
+    let current = this.head;
+
+    while (true) {
+      let currentNode = current;
+      let nextNode = currentNode.next;
+      let finalNode = nextNode.next;
+
+      if (finalNode === undefined) {
+        currentNode.next = undefined;
+        this.lastVal = currentNode;
+        return nextNode;
+      } else {
+        current = nextNode;
+      }
+    }
+  }
+  unshift() {
+    if (!this.head || !this.head.next) {
+      this.pop();
+    }
+    let holder = this.head;
+    this.head = holder.next;
+    return holder;
+  }
+  insert(data = crypto.randomBytes(10).toString("hex"), location) {
+    const node = new Node(data);
+    let count = 0;
+    let current = this.head;
+    while (true) {
+      let currentNode = current;
+      let nextNode = currentNode.next;
+      let finalNode = nextNode.next;
+      if (count === location) {
+      }
+      current = current.next;
+      count++;
     }
   }
 }
 
 const list = new Linked();
-
-list.append("garri is the ish");
-
-console.log(list);
