@@ -67,4 +67,4 @@ function insertion(list) {
   return list;
 }
 
-console.log(insertion([10, 4, 2, 1, 5, 0, 8, 6, 7, 3, 1, 0.002]));
+console.log(insertion([10, 4, 2, 1, 5, 0, 8, 6, 7, 3, 1, 0.002, -0.005]));
