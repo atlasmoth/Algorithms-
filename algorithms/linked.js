@@ -143,3 +143,5 @@ class Linked {
 }
 
 const list = new Linked();
+list.append();
+list.append();
